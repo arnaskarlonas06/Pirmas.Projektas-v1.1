@@ -8,4 +8,5 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 add_executable(PirmasProjektas
 pagrindinis.cpp
 funkcijos.cpp
+studentas.cpp
 )
