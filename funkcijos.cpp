@@ -22,8 +22,7 @@ double Vidurkis (const std:: vector <int>& namudarbai){
 
 }
 double GalutinisVidurkis(const studentas& S){
-  double vidurkis = Vidurkis(S.namudarbai);
-  return 0.4 * vidurkis + 0.6 * S.egzaminas;
+    return S.galutinisVidurkis();
 }
 void padalinti_studentus(std::vector<studentas>& studentai,
                         std::vector<studentas>& vargsiukai,
@@ -118,7 +117,7 @@ void padalinti_studentus_3(std::list<studentas>& studentai, std::list<studentas>
     for (auto iteratorius = studentai.begin(); iteratorius != studentai.end();) {
         auto dabartinis = iteratorius++;
         if (GalutinisVidurkis(*dabartinis) < 5.0) {
-          
+
             vargsiukai.splice(vargsiukai.end(), studentai, dabartinis);
 }
     }
@@ -149,10 +148,10 @@ int generuotipazymi(){
 
 }
 bool rikiavimas_pagal_pavarde(const studentas& pirmas, const studentas& antras){
-  return pirmas.pavarde < antras.pavarde;
+  return pirmas.pavarde() < antras.pavarde();
 }
 bool rikiavimas_pagal_varda(const studentas& pirmas, const studentas& antras){
-    return pirmas.vardas < antras.vardas;
+    return pirmas.vardas() < antras.vardas();
 }
 
 bool rikiavimas_pagal_galutini(const studentas& pirmas, const studentas& antras){
@@ -179,9 +178,7 @@ void generuoti_faila(const std :: string& failoPavadinimas, int studentuKiekis){
   std :: chrono :: duration<double> laikas = pabaiga - pradzia;
   std :: cout << "Failo " << failoPavadinimas << " generavimas uztruko " << laikas.count() << " s." << std :: endl;
 }
-void irasyti_studentus_i_faila(const std::string& failoPavadinimas,
-                               const std::vector<studentas>& studentai){
-
+void irasyti_studentus_i_faila(const std::string& failoPavadinimas, const std::vector<studentas>& studentai){
     std::ofstream failas(failoPavadinimas);
 
     if (!failas.is_open()){
@@ -192,7 +189,7 @@ void irasyti_studentus_i_faila(const std::string& failoPavadinimas,
     failas << std::left << std::setw(20) << "Pavarde" << std::setw(20) << "Vardas" << std::setw(20) << "Galutinis" << "\n";
 
     for (std ::size_t i = 0; i < studentai.size(); i++){
-        failas << std::left << std::setw(20) << studentai[i].pavarde << std::setw(20) << studentai[i].vardas << std::setw(20) << std::fixed << std::setprecision(2) << GalutinisVidurkis(studentai[i]) << "\n";
+        failas << std::left << std::setw(20) << studentai[i].pavarde() << std::setw(20) << studentai[i].vardas() << std::setw(20) << std::fixed << std::setprecision(2) << GalutinisVidurkis(studentai[i]) << "\n";
     }
 
     failas.close();
@@ -209,7 +206,7 @@ void irasyti_studentus_i_faila(
     failas << std :: left << std :: setw(20) << "Pavarde" << std :: setw(20) << "Vardas" << std :: setw(20) << "Galutinis" << std :: endl;
 
     for (const studentas& S : studentai){
-        failas << std :: left << std :: setw(20) << S.pavarde << std :: setw(20) << S.vardas << std :: fixed << std :: setprecision(2) << GalutinisVidurkis(S) << std :: endl;
+        failas << std :: left << std :: setw(20) << S.pavarde() << std :: setw(20) << S.vardas() << std :: fixed << std :: setprecision(2) << GalutinisVidurkis(S) << std :: endl;
     }
     failas.close();
 }
