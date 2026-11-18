@@ -48,7 +48,7 @@ while (strategija < 1 || strategija > 3) {
 }
 
   int veiksmas;
-  
+
   std::cout << "Pasirinkite programos veiksma:" << std::endl;
   std::cout << "1 - Ivesti studentu duomenis" << std::endl;
   std::cout << "2 - Nuskaityti studentus is failo" << std::endl;
@@ -64,13 +64,18 @@ while (veiksmas != 1 && veiksmas != 2 && veiksmas != 3) {
   if (veiksmas == 1){
 
   while (true){
-  studentas S;
+    studentas S;
+  std:: string vardas, pavarde;
+  std:: vector<int> namudarbai;
+  int egzaminas;
 
   std :: cout << "Iveskite studento varda: ";
-  std :: cin >> S.vardas;
+  std:: cin >> vardas;
+  S.setVardas(vardas);
 
   std :: cout << "Iveskite studento pavarde: ";
-  std :: cin >> S.pavarde;
+  std:: cin >> pavarde;
+  S.setPavarde(pavarde);
 
   int budas;
 
@@ -99,7 +104,7 @@ while (veiksmas != 1 && veiksmas != 2 && veiksmas != 3) {
     }
 
     if (pazymys >= 1 && pazymys <= 10) {
-      S.namudarbai.push_back(pazymys);
+      namudarbai.push_back(pazymys);
     }
     else {
       std :: cout << "Klaida. Pazymys turi buti desimt baleje sistemoje." << std :: endl;
@@ -107,12 +112,13 @@ while (veiksmas != 1 && veiksmas != 2 && veiksmas != 3) {
   }
 
   std :: cout << "Iveskite egzamino rezultata: ";
-  std :: cin >> S.egzaminas;
 
-  while (S.egzaminas < 1 || S.egzaminas > 10) {
+  std :: cin >> egzaminas;
+
+  while (egzaminas < 1 || egzaminas > 10){
     std::cout << "Klaida. Egzamino rezultatas turi buti nuo 1 iki 10." << std::endl;
     std::cout << "Iveskite egzamino rezultata dar karta: ";
-    std::cin >> S.egzaminas;
+    std::cin >> egzaminas;
 }
   }
   else if (budas == 2){
@@ -126,24 +132,28 @@ while (veiksmas != 1 && veiksmas != 2 && veiksmas != 3) {
     }
 
     for (int i=0; i < kiek; i++) {
-      S.namudarbai.push_back(generuotipazymi());
+      namudarbai.push_back(generuotipazymi());
     }
 
-    S.egzaminas = generuotipazymi();
+    egzaminas = generuotipazymi();
 
     std :: cout << "Sugeneruoti namu darbu pazymiai: ";
 
-    for (std ::size_t i = 0; i < S.namudarbai.size(); i++){
-      std :: cout << S.namudarbai[i] << " ";
+    for (std ::size_t i = 0; i < namudarbai.size(); i++){
+      std :: cout << namudarbai[i] << " ";
     }
     std :: cout << std :: endl;
-    std :: cout << "Sugeneruotas egzamino rezultatas: " << S.egzaminas << std :: endl;
+    std :: cout << "Sugeneruotas egzamino rezultatas: " << egzaminas << std :: endl;
   }
-  double vidurkis = Vidurkis(S.namudarbai);
-  double mediana = Mediana(S.namudarbai);
 
-  double galutinisVid = 0.4 * vidurkis + 0.6 * S.egzaminas;
-  double galutinisMed = 0.4 * mediana + 0.6 * S.egzaminas;
+  S.setNamudarbai(namudarbai);
+  S.setEgzaminas(egzaminas);
+
+  double vidurkis = Vidurkis(S.namudarbai());
+  double mediana = Mediana(S.namudarbai());
+
+  double galutinisVid = 0.4 * vidurkis + 0.6 * S.egzaminas();
+  double galutinisMed = 0.4 * mediana + 0.6 * S.egzaminas();
 
   std :: cout << "Galutinis balas (Vid.): " << std :: fixed << std :: setprecision(2) << galutinisVid << std :: endl;
   std :: cout << "Galutinis balas (Med.): " << std :: fixed << std :: setprecision(2) << galutinisMed << std :: endl;
@@ -184,33 +194,28 @@ while (veiksmas != 1 && veiksmas != 2 && veiksmas != 3) {
     std :: getline(failas, antraste);
 
     std :: string eil;
+    int praleistosEilutes = 0;
 
       while (std :: getline(failas, eil)){
-        studentas S;
+            studentas S;
+      std :: istringstream eilutesSrautas(eil);
 
-        std :: istringstream eilutesSrautas(eil);
-
-        eilutesSrautas >> S.pavarde >> S.vardas;
-
-        int pazymys;
-        std :: vector<int> pazymiai;
-        while (eilutesSrautas >> pazymys){
-          pazymiai.push_back(pazymys);
-        }
-        if (!pazymiai.empty()){
-          S.egzaminas = pazymiai.back();
-          pazymiai.pop_back();
-
-          S.namudarbai = pazymiai;
-
-          if(konteineris == 1){
-            studentai.push_back(S);
-          }
-          else {
-            studentaiList.push_back(S);
-          }
-        }
+if (S.readStudent(eilutesSrautas)){
+    if(konteineris == 1){
+        studentai.push_back(S);
+    }
+    else {
+        studentaiList.push_back(S);
+    }
+}
+else{
+    praleistosEilutes++;
+}
       }
+      if (praleistosEilutes > 0){
+    std :: cout << "Praleista netaisyklingu eiluciu: " << praleistosEilutes << std :: endl;
+}
+
       auto skaitymoPabaiga = std::chrono::high_resolution_clock::now();
       std::chrono::duration<double> skaitymoLaikas = skaitymoPabaiga - skaitymoPradzia;
       std::cout << "Failo nuskaitymas uztruko: " << skaitymoLaikas.count() << " s." << std::endl;
@@ -344,7 +349,7 @@ else {
         std::cout << "Kietiaku skaicius: " << studentaiList.size() << std::endl;
 }}
   auto rasymoPradzia = std :: chrono :: high_resolution_clock :: now();
- 
+
 if (konteineris == 1) {
     irasyti_studentus_i_faila("vargsiukai.txt", vargsiukai);
     if (strategija == 1) {
@@ -386,16 +391,16 @@ if (veiksmas == 1){
 
     if (konteineris == 1){
         for (const studentas& S : studentai){
-            double vidurkis = Vidurkis(S.namudarbai);
-            double mediana = Mediana(S.namudarbai);
-            std :: cout << std :: left << std :: setw(20) << S.pavarde << std :: setw(20) << S.vardas << std :: setw(20) << std :: fixed << std :: setprecision(2) << 0.4 * vidurkis + 0.6 * S.egzaminas << std :: setw(20) << 0.4 * mediana + 0.6 * S.egzaminas << std :: endl;
+            double vidurkis = Vidurkis(S.namudarbai());
+            double mediana = Mediana(S.namudarbai());
+            std :: cout << std :: left << std :: setw(20) << S.pavarde() << std :: setw(20) << S.vardas() << std :: setw(20) << std :: fixed << std :: setprecision(2) << 0.4 * vidurkis + 0.6 * S.egzaminas() << std :: setw(20) << 0.4 * mediana + 0.6 * S.egzaminas() << std :: endl;
         }
     }
     else {
         for (const studentas& S : studentaiList){
-            double vidurkis = Vidurkis(S.namudarbai);
-            double mediana = Mediana(S.namudarbai);
-            std :: cout << std :: left << std :: setw(20) << S.pavarde << std :: setw(20) << S.vardas << std :: setw(20) << std :: fixed << std :: setprecision(2) << 0.4 * vidurkis + 0.6 * S.egzaminas << std :: setw(20) << 0.4 * mediana + 0.6 * S.egzaminas << std :: endl;
+            double vidurkis = Vidurkis(S.namudarbai());
+            double mediana = Mediana(S.namudarbai());
+            std :: cout << std :: left << std :: setw(20) << S.pavarde() << std :: setw(20) << S.vardas() << std :: setw(20) << std :: fixed << std :: setprecision(2) << 0.4 * vidurkis + 0.6 * S.egzaminas() << std :: setw(20) << 0.4 * mediana + 0.6 * S.egzaminas() << std :: endl;
         }
     }
 }
