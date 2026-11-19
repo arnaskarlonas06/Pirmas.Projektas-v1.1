@@ -67,3 +67,12 @@ vcpkg_installed/
 # test output & cache
 Testing/
 .cache/
+
+/studentai100000.txt
+/studentai1000000.txt
+/pasirinkimai.txt
+/pasirinkimai1000000.txt
+/testas.txt
+/vargsiukai.txt
+/kietiakiai.txt
+/rezultatai/
