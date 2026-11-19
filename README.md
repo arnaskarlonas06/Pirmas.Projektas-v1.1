@@ -423,3 +423,25 @@ Kiekvienam optimizavimo lygiui programa buvo kompiliuojama atskirai, naudojant t
 
 Programos vykdomąjį failą sudaro trys šaltinio failai: `pagrindinis.cpp`, `funkcijos.cpp` ir `studentas.cpp`.
 
+
+
+## v1.1 programos veikimo patikrinimas
+
+Programos funkcionalumas buvo patikrintas naudojant rankiniu būdu įvestus studentų duomenis ir sugeneruotus duomenų failus.
+
+Atlikti šie patikrinimai:
+
+1. Programa sėkmingai sukompiliuota naudojant CMake ir GCC 14.2.0.
+2. Patikrintas rankinis studentų duomenų įvedimas bei galutinio pažymio skaičiavimas pagal vidurkį ir medianą.
+3. Sugeneruotas 10 studentų failas ir patikrintas jo nuskaitymas.
+4. Patikrinta trečioji skirstymo strategija su `std::vector`.
+5. Patikrintos visos trys skirstymo strategijos su `std::list`.
+6. Patikrintas studentų rikiavimas pagal pavardę ir rezultatų įrašymas į atskirus failus.
+7. Sugeneruoti 100 000 ir 1 000 000 studentų duomenų failai.
+8. Atlikti `struct` ir `class` našumo bandymai su `-O1`, `-O2` ir `-O3` optimizacijomis.
+
+Naudojant 10 studentų bandomąjį failą, iš viso gauti 3 vargšiukai ir 7 kietiakiai. Patikrinta, kad jų galutiniai pažymiai ir išvesties failai yra teisingi.
+
+Visos išbandytos programos funkcijos veikė tinkamai.
+
+
