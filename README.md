@@ -369,3 +369,13 @@ Lentelėje pateikiami trijų bandymų vidurkiai sekundėmis. Bendras laikas apsk
 | -O1 | 166 885 | 177 485 |
 | -O2 | 155 728 | 161 908 |
 | -O3 | 166 156 | 172 830 |
+
+## v1.1 našumo tyrimo išvados
+
+1. Atlikus bandymus su 100 000 ir 1 000 000 studentų, paaiškėjo, kad `struct` ir `class` programų vykdymo laikai daugeliu atvejų skiriasi nežymiai.
+2. Naudojant `-O1` ir `-O2` optimizacijas, abiejų dydžių duomenų rinkiniuose `class` versija veikė šiek tiek greičiau.
+3. Naudojant `-O3` optimizaciją ir 100 000 studentų, greitesnė buvo `struct` versija, o su 1 000 000 studentų – `class` versija.
+4. Mažiausi `.exe` failai abiejose programų versijose gauti naudojant `-O2` optimizaciją. Visais trimis optimizacijos lygiais `struct` programos vykdomasis failas buvo mažesnis.
+5. Didesnis optimizacijos lygis ne visada reiškė trumpesnį vykdymo laiką. Rezultatams įtakos galėjo turėti disko apkrova, operacinės sistemos procesai ir kitos aplinkybės.
+6. Rezultatai neįrodo, kad `class` savaime yra greitesnė už `struct`, nes tarp v1.0 ir v1.1 versijų pasikeitė ir dalis programos realizacijos.
+7. Naujoji `class studentas` versija leidžia geriau užtikrinti duomenų inkapsuliavimą, nes studento duomenys yra privatūs ir pasiekiami per viešus klasės metodus.
