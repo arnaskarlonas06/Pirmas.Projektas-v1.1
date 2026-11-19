@@ -8,8 +8,10 @@ studentas::studentas() : egzaminas_(0){}
 studentas::studentas(const std::string& vardas, const std::string& pavarde, const std::vector<int>& namudarbai, int egzaminas):
     vardas_(vardas),
       pavarde_(pavarde),
-      namudarbai_(namudarbai),
-      egzaminas_(egzaminas){}
+      egzaminas_(0){
+    setNamudarbai(namudarbai);
+    setEgzaminas(egzaminas);
+}
 
 studentas::studentas(std::istream& is) : egzaminas_(0){
     readStudent(is);
