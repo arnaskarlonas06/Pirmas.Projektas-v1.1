@@ -324,3 +324,27 @@ cmake --build build
 ```
 
 Sukompiliuota programa bus `build` kataloge arba kompiliavimo sistemos sukurtame konfigūracijos poaplankyje.
+
+# Versija 1.1
+
+## Pagrindiniai pakeitimai
+
+Šioje versijoje `struct studentas` pakeista į `class studentas`.
+
+Studento duomenys tapo privatūs, o jų pasiekimui naudojami getteriai ir setteriai. Klasėje realizuoti konstruktoriai, destruktorius, duomenų nuskaitymo ir galutinio pažymio skaičiavimo metodai.
+
+Išsaugotos abi talpyklos (`std::vector` ir `std::list`) bei visos trys studentų skirstymo strategijos.
+
+## Našumo tyrimo metodika
+
+Buvo palygintos `struct` (v1.0) ir `class` (v1.1) programų versijos.
+
+Naudotas GCC 14.2.0 kompiliatorius ir C++17 standartas.
+
+Tyrimui naudoti 100 000 ir 1 000 000 studentų duomenų failai. Visuose bandymuose pasirinktas `std::vector` konteineris, trečioji studentų skirstymo strategija ir rikiavimas pagal pavardę.
+
+Abi programos kompiliuotos su `-O1`, `-O2` ir `-O3` optimizacijomis.
+
+Kiekvienas bandymas pakartotas tris kartus. Buvo matuojamas failo nuskaitymo, studentų skirstymo, rikiavimo ir rezultatų įrašymo laikas. Lentelėse pateikiami trijų bandymų aritmetiniai vidurkiai.
+
+Papildomai palyginti sukompiliuotų `.exe` failų dydžiai.
