@@ -348,3 +348,24 @@ Abi programos kompiliuotos su `-O1`, `-O2` ir `-O3` optimizacijomis.
 Kiekvienas bandymas pakartotas tris kartus. Buvo matuojamas failo nuskaitymo, studentų skirstymo, rikiavimo ir rezultatų įrašymo laikas. Lentelėse pateikiami trijų bandymų aritmetiniai vidurkiai.
 
 Papildomai palyginti sukompiliuotų `.exe` failų dydžiai.
+
+## Struct ir class našumo palyginimas
+
+Lentelėje pateikiami trijų bandymų vidurkiai sekundėmis. Bendras laikas apskaičiuotas sudėjus failo nuskaitymo, studentų skirstymo, rikiavimo ir įrašymo trukmes.
+
+| Optimizacija | Studentų kiekis | Struct (s) | Class (s) |
+|---|---:|---:|---:|
+| -O1 | 100 000 | 0,410189 | 0,400322 |
+| -O1 | 1 000 000 | 4,815106 | 4,715070 |
+| -O2 | 100 000 | 0,478160 | 0,436912 |
+| -O2 | 1 000 000 | 6,131976 | 6,023100 |
+| -O3 | 100 000 | 0,429990 | 0,435793 |
+| -O3 | 1 000 000 | 5,070563 | 4,401532 |
+
+## Vykdomųjų failų dydžių palyginimas
+
+| Optimizacija | Struct (.exe dydis baitais) | Class (.exe dydis baitais) |
+|---|---:|---:|
+| -O1 | 166 885 | 177 485 |
+| -O2 | 155 728 | 161 908 |
+| -O3 | 166 156 | 172 830 |
