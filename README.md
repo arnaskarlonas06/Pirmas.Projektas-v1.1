@@ -379,3 +379,47 @@ Lentelėje pateikiami trijų bandymų vidurkiai sekundėmis. Bendras laikas apsk
 5. Didesnis optimizacijos lygis ne visada reiškė trumpesnį vykdymo laiką. Rezultatams įtakos galėjo turėti disko apkrova, operacinės sistemos procesai ir kitos aplinkybės.
 6. Rezultatai neįrodo, kad `class` savaime yra greitesnė už `struct`, nes tarp v1.0 ir v1.1 versijų pasikeitė ir dalis programos realizacijos.
 7. Naujoji `class studentas` versija leidžia geriau užtikrinti duomenų inkapsuliavimą, nes studento duomenys yra privatūs ir pasiekiami per viešus klasės metodus.
+
+
+## v1.1 programos kompiliavimas ir paleidimas
+
+Programai reikalingas C++17 standartą palaikantis kompiliatorius.
+
+### Kompiliavimas naudojant g++
+
+```bash
+g++ -std=c++17 pagrindinis.cpp funkcijos.cpp studentas.cpp -o PirmasProjektas.exe
+```
+
+Programos paleidimas Windows aplinkoje:
+
+```cmd
+PirmasProjektas.exe
+```
+
+### Kompiliavimas naudojant CMake
+
+Projektas kompiliuotas naudojant GCC 14.2.0 ir MinGW Makefiles.
+
+Windows CMD aplinkoje:
+
+```cmd
+set "PATH=C:\Program Files\CodeBlocks\MinGW\bin;%PATH%"
+cmake -S . -B build-v1.1 -G "MinGW Makefiles"
+cmake --build build-v1.1
+```
+
+Programos paleidimas:
+
+```cmd
+build-v1.1\PirmasProjektas.exe
+```
+
+### Kompiliavimas su optimizacijomis
+
+Našumo tyrimams naudoti kompiliatoriaus optimizavimo lygiai `-O1`, `-O2` ir `-O3`.
+
+Kiekvienam optimizavimo lygiui programa buvo kompiliuojama atskirai, naudojant tą patį GCC 14.2.0 kompiliatorių.
+
+Programos vykdomąjį failą sudaro trys šaltinio failai: `pagrindinis.cpp`, `funkcijos.cpp` ir `studentas.cpp`.
+
